@@ -9,7 +9,7 @@ on:
     inputs:
       app:
         description: "Pasta do app Slip (com main.slip). Vazio = IDE Slip Script"
-        default: "examples/apps/contador"
+        default: ""
         required: false
 jobs:
   apk:
