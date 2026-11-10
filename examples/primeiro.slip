@@ -1,0 +1,16 @@
+vl<nome> = "Slip"
+ut<>!"Olá, " + nome + "!>!<>
+vl<total> = 0
+for i in range(1, 6) do
+    total += i
+end
+ut<>!"Soma de 1 a 5: " + total!<>
+function dobro(x)
+    return x * 2
+end
+ut<>!"Dobro de 12: " + dobro(12)!<>
+if total == 15 then
+    ut<>!"Núcleo funcionando>!<>
+else
+    ut<>!"Verifique o resultado>!<>
+end

@@ -1,0 +1,23 @@
+# App de exemplo para o slip2apk: um contador com histórico salvo e um módulo.
+use("util")
+
+vl<total> = 0
+
+function somar()
+    total += 1
+    contador.texto = str(total)
+    status.texto = rotulo(total)
+end
+
+function zerar()
+    total = 0
+    contador.texto = "0"
+    status.texto = "Zerado"
+end
+
+vt<caixa>"painel"<> + <>!"#242232"!<> + <>!{espaco: 12, raio: 12, margem: 8}!<>
+vt<>"titulo"<> + <>!"Contador"!<> + <>!"#ffffff"!<> + <>!24!<> + <>!{negrito: true}!<> + <>!painel!<>
+vt<>"contador"<> + <>!"0"!<> + <>!"#a7f3c0"!<> + <>!48!<> + <>!painel!<>
+vt<>"status"<> + <>!"Toque no botão"!<> + <>!"#bdb8d5"!<> + <>!painel!<>
+vt<botao>"mais"<> + <>!"Somar 1"!<> + <>!"#6b58d3"!<> + <>!"#ffffff"!<> + <>!somar!<> + <>!painel!<>
+vt<botao>"zero"<> + <>!"Zerar"!<> + <>!"#3a3750"!<> + <>!"#ffffff"!<> + <>!zerar!<> + <>!painel!<>

@@ -1,0 +1,67 @@
+plugins { id 'com.android.application' }
+
+// ---------------------------------------------------------------------------------------------
+// Parâmetros (-Pnome=valor na linha de comando do Gradle). Sem nenhum deles, o build gera o próprio
+// IDE Slip Script. tools/slip2apk.sh preenche tudo isto para gerar um APK de um script .slip:
+//   slipAssets / slipRes   pastas de assets e res já preparadas (assets/slip-app/main.slip, res/drawable/ic_launcher.png)
+//   slipAppId / slipAppName / slipVersionName / slipVersionCode   identidade do app gerado
+//   slipNoNative           pula o CMake/NDK (a FFI deixa de funcionar nesse APK)
+// Assinatura do release: -PslipKeystore=... -PslipKeystorePassword=... -PslipKeyAlias=... -PslipKeyPassword=...
+// (ou as variáveis de ambiente SLIP_KEYSTORE, SLIP_KEYSTORE_PASSWORD, SLIP_KEY_ALIAS, SLIP_KEY_PASSWORD).
+// Sem keystore, o release sai assinado com a chave de debug: instala normalmente, mas não serve para publicar.
+// ---------------------------------------------------------------------------------------------
+def prop = { String name, String fallback -> project.findProperty(name)?.toString() ?: fallback }
+
+def slipAssets = prop('slipAssets', '')
+def slipRes = prop('slipRes', '')
+def runner = !slipAssets.isEmpty()
+def hasIcon = !slipRes.isEmpty() && new File(slipRes, 'drawable/ic_launcher.png').exists()
+def keystore = prop('slipKeystore', System.getenv('SLIP_KEYSTORE') ?: '')
+
+android {
+    namespace 'com.slipscript.ide'
+    compileSdk 35
+    defaultConfig {
+        applicationId prop('slipAppId', 'com.slipscript.ide')
+        minSdk 23
+        targetSdk 28
+        versionCode prop('slipVersionCode', '1').toInteger()
+        versionName prop('slipVersionName', '1.0')
+        ndk { abiFilters 'arm64-v8a', 'x86_64' }   // FFI: apenas ABIs 64-bit
+        manifestPlaceholders = [
+            appLabel      : prop('slipAppName', 'Slip Script'),
+            appIcon       : hasIcon ? '@drawable/ic_launcher' : '@android:drawable/sym_def_app_icon',
+            ideEnabled    : runner ? 'false' : 'true',    // no APK de script, o IDE sai do menu...
+            runnerEnabled : runner ? 'true' : 'false'     // ...e quem abre é o RunnerActivity
+        ]
+    }
+    if (!project.hasProperty('slipNoNative')) {
+        externalNativeBuild { cmake { path 'src/main/cpp/CMakeLists.txt' } }
+    }
+    sourceSets {
+        main {
+            if (!slipAssets.isEmpty()) assets.srcDir(file(slipAssets))
+            if (!slipRes.isEmpty()) res.srcDir(file(slipRes))
+        }
+    }
+    if (!keystore.isEmpty()) {
+        signingConfigs {
+            release {
+                storeFile file(keystore)
+                storePassword prop('slipKeystorePassword', System.getenv('SLIP_KEYSTORE_PASSWORD') ?: '')
+                keyAlias prop('slipKeyAlias', System.getenv('SLIP_KEY_ALIAS') ?: '')
+                keyPassword prop('slipKeyPassword', System.getenv('SLIP_KEY_PASSWORD') ?: '')
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false   // a FFI usa JNI/reflexão: sem ofuscação
+            signingConfig keystore.isEmpty() ? signingConfigs.debug : signingConfigs.release
+        }
+    }
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

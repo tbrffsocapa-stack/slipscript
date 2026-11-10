@@ -1,0 +1,23 @@
+vl<pessoas> = [
+    {nome: "Ana", idade: 31},
+    {nome: "Bia", idade: 19},
+    {nome: "Caio", idade: 45}
+]
+
+vl<maiores> = filter(pessoas, p => p.idade >= 21)
+ut<>!map(maiores, p => upper(p.nome))!<>
+ut<>!map(sort_by(pessoas, p => p.idade), p => p.nome)!<>
+ut<>!reduce(map(pessoas, p => p.idade), (a, b) => a + b)!<>
+ut<>!"a,b,c".split(",")!<>
+ut<>!format("{} tem {} anos", pessoas[0].nome, pessoas[0].idade)!<>
+
+try
+    vl<d> = json_parse("{ quebrado")
+catch e
+    ut<>!"erro de JSON: " + e.mensagem!<>
+finally
+    ut<>!"fim"!<>
+end
+
+ut<>!json_str({lista: [1, 2, 3], ok: true}, true)!<>
+ut<>!date_str(now(), "dd/MM/yyyy HH:mm")!<>

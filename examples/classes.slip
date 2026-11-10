@@ -1,0 +1,30 @@
+class Animal
+    function init(nome, som)
+        self.nome = nome
+        self.som = som
+    end
+    function falar()
+        return self.nome + " faz " + self.som
+    end
+end
+
+class Cao extends Animal
+    function init(nome)
+        super.init(nome, "au")
+        self.truques = []
+    end
+    function ensinar(truque)
+        push(self.truques, truque)
+        return self
+    end
+    function falar()
+        return super.falar() + "!"
+    end
+end
+
+vl<rex> = Cao("Rex")
+rex.ensinar("sentar").ensinar("pata")
+ut<>!rex.falar()!<>
+ut<>!rex.truques!<>
+ut<>!type(rex) + " é Animal? " + is_a(rex, Animal)!<>
+ut<>!rex!<>

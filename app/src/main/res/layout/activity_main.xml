@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:padding="12dp"
+    android:background="#171622" android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView android:text="Slip Script  |  Slip 1.0" android:textColor="#FFFFFF"
+        android:textStyle="bold" android:textSize="20sp" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="8dp"/>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:id="@+id/example" android:text="Exemplo" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/run" android:text="Executar" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/clear" android:text="Limpar" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView android:text="Código Slip" android:textColor="#BDB8D5" android:paddingTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/editor" android:gravity="top|start" android:fontFamily="monospace"
+        android:textSize="14sp" android:textColor="#F4F1FF" android:hint="Escreva seu código Slip..."
+        android:hintTextColor="#827D99" android:background="#242232" android:padding="12dp"
+        android:inputType="textMultiLine|textNoSuggestions" android:scrollbars="vertical"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+    <TextView android:id="@+id/uiLabel" android:visibility="gone" android:text="Interface" android:textColor="#BDB8D5" android:paddingTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <ScrollView android:id="@+id/uiPanel" android:visibility="gone" android:background="#242232" android:layout_width="match_parent" android:layout_height="220dp">
+        <LinearLayout android:id="@+id/uiRoot" android:orientation="vertical" android:padding="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+    <TextView android:text="Console" android:textColor="#BDB8D5" android:paddingTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <ScrollView android:background="#242232" android:layout_width="match_parent" android:layout_height="130dp">
+        <TextView android:id="@+id/console" android:freezesText="true" android:textColor="#A7F3C0" android:fontFamily="monospace"
+            android:textSize="13sp" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+</LinearLayout>

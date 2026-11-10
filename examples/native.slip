@@ -1,0 +1,7 @@
+# Requer libslipdemo.so (em files/slip/libs/ ou empacotada no APK)
+vl<lib> = native_load("libslipdemo.so")
+vl<somar> = native_bind(lib, "somar", "i32(i32,i32)")
+ut<>!"somar(10, 20) = " + somar(10, 20)!<>
+ut<>!"hipotenusa = " + native_call(lib, "hipotenusa", "f64(f64,f64)", 3, 4)!<>
+ut<>!native_call(lib, "saudacao", "str(str)", "Slip")!<>
+native_close(lib)

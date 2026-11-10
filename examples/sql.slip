@@ -1,0 +1,4 @@
+sql("CREATE TABLE IF NOT EXISTS notas (id INTEGER PRIMARY KEY, materia TEXT, nota REAL)")
+sql("INSERT INTO notas (materia, nota) VALUES ('Matemática', 9.5)")
+vl<resultado> = sql("SELECT * FROM notas")
+ut<>!resultado!<>

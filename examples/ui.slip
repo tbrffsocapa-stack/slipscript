@@ -1,0 +1,27 @@
+# Interface visual: vt<tipo>"nome"<> + <>!valor!<> ...
+# O tipo do valor define o que ele faz:
+#   "#rrggbb" = cor | outro texto = texto | número = tamanho | função = ação
+#   elemento = onde colocar | {mapa} = propriedades com nome
+
+function somar()
+    contador.texto = num(contador.texto) + 1
+    status.texto = "Clicou " + contador.texto + "x"
+end
+
+function digitou(texto)
+    saudacao.texto = "Olá, " + texto + "!"
+end
+
+vt<caixa>"painel"<> + <>!"#242232"!<> + <>!{espaco: 12, raio: 10, margem: 8}!<>
+
+vt<>"titulo"<> + <>!"Meu app Slip"!<> + <>!"#ffffff"!<> + <>!22!<> + <>!{negrito: true}!<> + <>!painel!<>
+vt<>"contador"<> + <>!"0"!<> + <>!"#a7f3c0"!<> + <>!36!<> + <>!painel!<>
+vt<>"status"<> + <>!"Ainda não clicou"!<> + <>!"#bdb8d5"!<> + <>!painel!<>
+
+vt<botao>"mais"<> + <>!"Somar 1"!<> + <>!"#6b58d3"!<> + <>!"#ffffff"!<> + <>!somar!<> + <>!painel!<>
+
+vt<entrada>"nome"<> + <>!"Digite seu nome"!<> + <>!digitou!<> + <>!painel!<>
+vt<>"saudacao"<> + <>!"Olá!"!<> + <>!"#ffffff"!<> + <>!painel!<>
+
+# alterar depois: vt<> sem tipo muda um elemento que já existe
+vt<>"titulo"<> + <>!"#ffd166"!<>

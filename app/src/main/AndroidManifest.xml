@@ -1,0 +1,20 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application android:theme="@style/AppTheme" android:label="${appLabel}" android:icon="${appIcon}" android:usesCleartextTraffic="false">
+        <!-- IDE (editor + console). Desligado nos APKs gerados por tools/slip2apk.sh. -->
+        <activity android:name=".MainActivity" android:exported="true" android:enabled="${ideEnabled}">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- Modo app: roda assets/slip-app/main.slip, sem editor. Só ligado nos APKs gerados. -->
+        <activity android:name=".RunnerActivity" android:exported="true" android:enabled="${runnerEnabled}"
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard|screenLayout|smallestScreenSize|uiMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

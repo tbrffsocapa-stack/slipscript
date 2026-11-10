@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:padding="12dp"
+    android:background="#171622" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ScrollView android:id="@+id/uiPanel" android:visibility="gone" android:background="#242232"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="3">
+        <LinearLayout android:id="@+id/uiRoot" android:orientation="vertical" android:padding="8dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+    <ScrollView android:id="@+id/consolePanel" android:visibility="gone" android:background="#242232"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <TextView android:id="@+id/console" android:textColor="#A7F3C0" android:fontFamily="monospace"
+            android:textSize="13sp" android:padding="10dp" android:textIsSelectable="true"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+</LinearLayout>

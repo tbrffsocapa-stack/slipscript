@@ -1,0 +1,12 @@
+# Precisa de internet e de https (no Android, http puro é bloqueado).
+try
+    vl<r> = http_get("https://api.github.com/repos/torvalds/linux", {Accept: "application/json"})
+    if r.ok then
+        vl<d> = json_parse(r.corpo)
+        ut<>!d.full_name + ": " + d.stargazers_count + " estrelas"!<>
+    else
+        ut<>!"servidor respondeu " + r.status!<>
+    end
+catch e
+    ut<>!"sem rede: " + e.mensagem!<>
+end
